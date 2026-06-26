@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Splunk Monday Health Check Pack</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="page">
+      <section class="hero">
+        <p class="eyebrow">Free session toolkit</p>
+        <h1>Splunk Monday Health Check Pack</h1>
+        <p class="lede">Five portable SPL searches, AI Assistant prompts, and a 90-day worksheet you can use to turn ingest health into owner actions and executive language.</p>
+        <div class="actions">
+          <a href="README.md">Read the guide</a>
+          <a href="prompts/splunk_ai_assistant_monday_health_check.md">AI Assistant prompt</a>
+          <a href="worksheets/90_day_sprint_worksheet.md">90-day worksheet</a>
+        </div>
+      </section>
+
+      <section class="band">
+        <h2>Run These First</h2>
+        <div class="grid">
+          <a class="tile" href="spl/01_weekly_index_concentration.spl">
+            <span>01</span>
+            <strong>Weekly index concentration</strong>
+            <p>Find the indexes driving the most weekly ingest.</p>
+          </a>
+          <a class="tile" href="spl/02_week_over_week_index_delta.spl">
+            <span>02</span>
+            <strong>Week-over-week index delta</strong>
+            <p>Separate new offenders from steady-state volume.</p>
+          </a>
+          <a class="tile" href="spl/03_weekly_sourcetype_concentration.spl">
+            <span>03</span>
+            <strong>Weekly sourcetype concentration</strong>
+            <p>Identify noisy data classes and owner candidates.</p>
+          </a>
+          <a class="tile" href="spl/04_scheduled_search_compute_burn.spl">
+            <span>04</span>
+            <strong>Scheduled-search compute burn</strong>
+            <p>Find recurring searches consuming platform runtime.</p>
+          </a>
+          <a class="tile" href="spl/05_lastchanceindex_misroute_triage.spl">
+            <span>05</span>
+            <strong>LastChanceIndex misroute triage</strong>
+            <p>Treat broken routing as data-quality risk.</p>
+          </a>
+        </div>
+      </section>
+
+      <section class="band split">
+        <div>
+          <h2>Use The Prompt</h2>
+          <p>Paste the prompt into Splunk AI Assistant when available. Ask it to summarize risks, suggest fix paths, and translate findings for leadership.</p>
+          <a class="text-link" href="prompts/splunk_ai_assistant_monday_health_check.md">Open prompt</a>
+        </div>
+        <div>
+          <h2>Work The Sprint</h2>
+          <p>Use the worksheet to assign owners, validate before/after impact, and turn one finding into a 90-day outcome.</p>
+          <a class="text-link" href="worksheets/90_day_sprint_worksheet.md">Open worksheet</a>
+        </div>
+      </section>
+
+      <section class="band">
+        <h2>Optional AI Skill</h2>
+        <p class="narrow">The skill file is a portable instruction set for an AI assistant. It is not a live MCP server and it does not connect to your Splunk environment by itself.</p>
+        <a class="text-link" href="skill/SKILL.md">View SKILL.md</a>
+      </section>
+
+      <footer>
+        <p>Community/session asset. Validate searches in your own Splunk environment. Not an official Splunk product or supported app.</p>
+      </footer>
+    </main>
+  </body>
+</html>
+

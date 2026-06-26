@@ -1,0 +1,12 @@
+index=_internal source=*metrics.log group=per_index_thruput
+    series!=_* series!=history series!=summary earliest=-7d@d latest=@d
+| fields _time series kb
+| stats sum(kb) as kb by series
+| eventstats sum(kb) as total_kb
+| eval GB=round(kb/1024/1024,2)
+| eval pct_of_total=round(kb/total_kb*100,1)
+| rename series as index
+| sort -GB
+| head 20
+| table index GB pct_of_total
+
