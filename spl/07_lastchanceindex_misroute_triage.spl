@@ -7,10 +7,14 @@ index=_internal sourcetype=splunkd source=*splunkd.log earliest=-7d@d latest=@d
 | rex field=_raw "source=\"source::(?<original_source>[^\"]+)\""
 | rex field=_raw "sourcetype=\"sourcetype::(?<source_type>[^\"]+)\""
 | eval route_message=case(match(_raw,"(?i)into the LastChanceIndex"),"Redirected to LastChanceIndex", match(_raw,"(?i)Received event for unconfigured/disabled/deleted index"),"Missing or invalid index", true(),"Unclassified")
-| eval missing_index=coalesce(missing_index,"unknown")
-| eval source_host=coalesce(source_host,host,"unknown")
-| eval original_source=coalesce(original_source,source,"unknown")
-| eval source_type=coalesce(source_type,sourcetype,"unknown")
+| eval missing_index=trim(coalesce(missing_index,""))
+| eval source_host=trim(coalesce(source_host,host,""))
+| eval original_source=trim(coalesce(original_source,""))
+| eval source_type=trim(coalesce(source_type,""))
+| eval missing_index=if(missing_index="" OR match(missing_index,"(?i)^\\[?null(,null)*\\]?$"),"unspecified",missing_index)
+| eval source_host=if(source_host="" OR match(source_host,"(?i)^\\[?null(,null)*\\]?$"),"unknown",source_host)
+| eval original_source=if(original_source="" OR match(original_source,"(?i)^\\[?null(,null)*\\]?$"),"unknown",original_source)
+| eval source_type=if(source_type="" OR match(source_type,"(?i)^\\[?null(,null)*\\]?$"),"unknown",source_type)
 | addinfo
 | eval window_days=max(round((info_max_time-info_min_time)/86400,2),1)
 | stats count as event_count values(source_type) as sourcetypes

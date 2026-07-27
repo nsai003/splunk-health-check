@@ -50,6 +50,8 @@ Use when you need to detect data redirected because target indexes are unconfigu
 
 This search intentionally requires the actual `Received event for unconfigured/disabled/deleted index` or `Redirected event for unconfigured/disabled/deleted index` message from `splunkd.log`. It does not search for `LastChanceIndex` by itself because that can match normal search activity logs, such as `remote_searches.log`, that merely mention the term.
 
+If the target index appears as `unspecified`, Splunk logged the destination index as empty or null. Use the source host, original source, and sourcetype columns to trace the input, HEC token, forwarder, or index-time routing rule that needs correction.
+
 ## Bonus: Week-Over-Week Index Delta
 
 File: `extras/bonus_week_over_week_index_delta.spl`
