@@ -1,18 +1,21 @@
 index=_internal earliest=-7d@d latest=@d
-    "Redirected event for unconfigured/disabled/deleted index" "LastChanceIndex"
-| fields _time host _raw
+    ("Redirected event for unconfigured/disabled/deleted index" OR "LastChanceIndex")
+| fields _time host source sourcetype _raw
 | rex field=_raw "index=(?<missing_index>[^\\s,]+)"
 | rex field=_raw "host=\"host::(?<source_host>[^\"]+)\""
-| rex field=_raw "source=\"source::(?<log_source>[^\"]+)\""
+| rex field=_raw "source=\"source::(?<original_source>[^\"]+)\""
 | rex field=_raw "sourcetype=\"sourcetype::(?<source_type>[^\"]+)\""
+| eval missing_index=coalesce(missing_index,"unknown")
+| eval source_host=coalesce(source_host,host,"unknown")
+| eval original_source=coalesce(original_source,source,"unknown")
+| eval source_type=coalesce(source_type,sourcetype,"unknown")
 | addinfo
 | eval window_days=max(round((info_max_time-info_min_time)/86400,2),1)
 | stats count as event_count values(source_type) as sourcetypes
         min(_time) as first_seen max(_time) as last_seen
-        by missing_index source_host log_source window_days
+        by missing_index source_host original_source window_days
 | eval events_per_day=round(event_count/window_days,2)
 | eval first_seen=strftime(first_seen,"%Y-%m-%d %H:%M")
 | eval last_seen=strftime(last_seen,"%Y-%m-%d %H:%M")
 | sort missing_index -event_count
-| table missing_index source_host log_source sourcetypes event_count events_per_day first_seen last_seen
-
+| table missing_index source_host original_source sourcetypes event_count events_per_day first_seen last_seen

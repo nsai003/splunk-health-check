@@ -1,0 +1,12 @@
+index=_internal sourcetype=splunkd source=*metrics.log group=queue earliest=-7d@d latest=@d
+| fields _time name current_size max_size largest_size
+| eval queue=coalesce(name,"unknown")
+| eval current_size=tonumber(current_size), max_size=tonumber(max_size), largest_size=tonumber(largest_size)
+| eval pct_full=if(max_size>0, round(current_size/max_size*100,1), null())
+| stats count as samples max(pct_full) as max_pct_full avg(pct_full) as avg_pct_full
+        max(current_size) as max_current_size max(largest_size) as largest_size max(max_size) as max_size
+        by queue
+| where isnotnull(max_pct_full) OR isnotnull(largest_size)
+| eval avg_pct_full=round(avg_pct_full,1)
+| sort 20 -max_pct_full -largest_size
+| table queue max_pct_full avg_pct_full max_current_size largest_size max_size samples

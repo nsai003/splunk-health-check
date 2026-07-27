@@ -1,0 +1,13 @@
+index=_internal source=*license_usage.log type=Usage earliest=-14d@d latest=@d
+| fields _time idx b
+| eval index=coalesce(idx,"unknown")
+| bin _time span=1d
+| stats sum(b) as bytes by _time
+| sort 0 _time
+| streamstats current=f window=1 last(bytes) as previous_bytes
+| eval GB=round(bytes/1024/1024/1024,2)
+| eval previous_GB=if(isnotnull(previous_bytes), round(previous_bytes/1024/1024/1024,2), null())
+| eval dod_change_GB=if(isnotnull(previous_bytes), round((bytes-previous_bytes)/1024/1024/1024,2), null())
+| eval dod_change_pct=if(previous_bytes>0, round((bytes-previous_bytes)/previous_bytes*100,1), null())
+| eval day=strftime(_time,"%Y-%m-%d")
+| table day GB previous_GB dod_change_GB dod_change_pct

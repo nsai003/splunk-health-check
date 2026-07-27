@@ -1,0 +1,14 @@
+index=_internal sourcetype=splunkd source=*metrics.log group=per_index_thruput earliest=-14d@d latest=@d
+| fields _time series kb
+| where isnotnull(series)
+| where NOT match(series, "^_") AND series!="history" AND series!="summary"
+| bin _time span=1d
+| stats sum(kb) as kb by _time
+| sort 0 _time
+| streamstats current=f window=1 last(kb) as previous_kb
+| eval GB=round(kb/1024/1024,2)
+| eval previous_GB=if(isnotnull(previous_kb), round(previous_kb/1024/1024,2), null())
+| eval dod_change_GB=if(isnotnull(previous_kb), round((kb-previous_kb)/1024/1024,2), null())
+| eval dod_change_pct=if(previous_kb>0, round((kb-previous_kb)/previous_kb*100,1), null())
+| eval day=strftime(_time,"%Y-%m-%d")
+| table day GB previous_GB dod_change_GB dod_change_pct

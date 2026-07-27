@@ -11,39 +11,51 @@
       <section class="hero">
         <p class="eyebrow">Free session toolkit</p>
         <h1>Splunk Monday Health Check Pack</h1>
-        <p class="lede">Five portable SPL searches, AI Assistant prompts, and a 90-day worksheet you can use to turn ingest health into owner actions and executive language.</p>
+        <p class="lede">Seven portable SPL searches, AI Assistant prompts, and a 90-day worksheet you can use to turn ingest health into owner actions and executive language.</p>
         <div class="actions">
           <a href="README.md">Read the guide</a>
+          <a href="SEARCHES.md">Search runbook</a>
           <a href="prompts/splunk_ai_assistant_monday_health_check.md">AI Assistant prompt</a>
+          <a href="spl/01_weekly_index_concentration_sanitized_for_screenshots.spl">Sanitized screenshot search</a>
           <a href="worksheets/90_day_sprint_worksheet.md">90-day worksheet</a>
         </div>
       </section>
 
       <section class="band">
-        <h2>Run These First</h2>
+        <h2>Run These In Order</h2>
         <div class="grid">
           <a class="tile" href="spl/01_weekly_index_concentration.spl">
             <span>01</span>
             <strong>Weekly index concentration</strong>
             <p>Find the indexes driving the most weekly ingest.</p>
           </a>
-          <a class="tile" href="spl/02_week_over_week_index_delta.spl">
+          <a class="tile" href="spl/02_weekly_sourcetype_concentration.spl">
             <span>02</span>
-            <strong>Week-over-week index delta</strong>
-            <p>Separate new offenders from steady-state volume.</p>
-          </a>
-          <a class="tile" href="spl/03_weekly_sourcetype_concentration.spl">
-            <span>03</span>
             <strong>Weekly sourcetype concentration</strong>
-            <p>Identify noisy data classes and owner candidates.</p>
+            <p>Identify noisy source classes and owner candidates.</p>
+          </a>
+          <a class="tile" href="spl/03_daily_ingest_trend_spikes_14d.spl">
+            <span>03</span>
+            <strong>Daily ingest trend and spikes</strong>
+            <p>Spot day-over-day movement across the last 14 days.</p>
           </a>
           <a class="tile" href="spl/04_scheduled_search_compute_burn.spl">
             <span>04</span>
             <strong>Scheduled-search compute burn</strong>
             <p>Find recurring searches consuming platform runtime.</p>
           </a>
-          <a class="tile" href="spl/05_lastchanceindex_misroute_triage.spl">
+          <a class="tile" href="spl/05_ad_hoc_search_compute_burn.spl">
             <span>05</span>
+            <strong>Ad-hoc search compute burn</strong>
+            <p>Find users driving interactive search runtime.</p>
+          </a>
+          <a class="tile" href="spl/06_pipeline_pressure_queue_backlog.spl">
+            <span>06</span>
+            <strong>Pipeline pressure and queues</strong>
+            <p>Find queues that show sustained or peak backlog.</p>
+          </a>
+          <a class="tile" href="spl/07_lastchanceindex_misroute_triage.spl">
+            <span>07</span>
             <strong>LastChanceIndex misroute triage</strong>
             <p>Treat broken routing as data-quality risk.</p>
           </a>
@@ -63,6 +75,19 @@
         </div>
       </section>
 
+      <section class="band split">
+        <div>
+          <h2>Public Screenshot Version</h2>
+          <p>Use the sanitized index concentration search when you need a slide or demo screenshot without exposing real index names.</p>
+          <a class="text-link" href="spl/01_weekly_index_concentration_sanitized_for_screenshots.spl">Open sanitized SPL</a>
+        </div>
+        <div>
+          <h2>Optional Extras</h2>
+          <p>Use the extras when a customer wants deeper validation or license-usage comparison after the first health check.</p>
+          <a class="text-link" href="extras/bonus_week_over_week_index_delta.spl">Open bonus delta search</a>
+        </div>
+      </section>
+
       <section class="band">
         <h2>Optional AI Skill</h2>
         <p class="narrow">The skill file is a portable instruction set for an AI assistant. It is not a live MCP server and it does not connect to your Splunk environment by itself.</p>
@@ -75,4 +100,3 @@
     </main>
   </body>
 </html>
-

@@ -1,0 +1,2 @@
+GitHub repository: https://github.com/nsai003/splunk-health-check
+GitHub Pages landing page: https://nsai003.github.io/splunk-health-check/

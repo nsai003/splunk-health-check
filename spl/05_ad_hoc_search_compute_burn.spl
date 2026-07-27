@@ -1,0 +1,10 @@
+index=_audit action=search info=completed earliest=-7d@d latest=@d
+| fields _time user search search_id total_run_time apiStartTime apiEndTime savedsearch_name
+| eval runtime_sec=tonumber(total_run_time)
+| where isnotnull(runtime_sec) AND runtime_sec>0
+| stats count as searches sum(runtime_sec) as total_sec avg(runtime_sec) as avg_sec
+        perc95(runtime_sec) as p95_sec by user
+| eval total_hrs_7d=round(total_sec/3600,1)
+| eval avg_mins=round(avg_sec/60,2), p95_mins=round(p95_sec/60,2)
+| sort 20 -total_hrs_7d
+| table user searches total_hrs_7d avg_mins p95_mins

@@ -7,5 +7,6 @@ index=_internal sourcetype=splunkd source=*metrics.log group=per_index_thruput e
 | eval GB=round(kb/1024/1024,2)
 | eval pct_of_total=if(total_kb>0, round(kb/total_kb*100,1), null())
 | sort 20 -GB
-| rename series as index
-| table index GB pct_of_total
+| streamstats count as rank
+| eval data_stream="Data Stream ".rank
+| table data_stream GB pct_of_total

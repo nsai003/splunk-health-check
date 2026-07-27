@@ -1,11 +1,10 @@
-index=_internal source=*scheduler.log status=success earliest=-7d@d latest=@d
+index=_internal sourcetype=scheduler source=*scheduler.log status=success earliest=-7d@d latest=@d
 | fields _time user app savedsearch_name run_time
 | stats count as runs sum(run_time) as total_sec avg(run_time) as avg_sec
         perc95(run_time) as p95_sec by user app savedsearch_name
 | eval total_hrs_7d=round(total_sec/3600,1)
 | eval avg_mins=round(avg_sec/60,2), p95_mins=round(p95_sec/60,2)
 | where total_hrs_7d > 0.5
-| sort -total_hrs_7d
+| sort 20 -total_hrs_7d
 | rename savedsearch_name as "Saved Search"
 | table "Saved Search" app user total_hrs_7d runs avg_mins p95_mins
-

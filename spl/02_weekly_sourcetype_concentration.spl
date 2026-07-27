@@ -1,0 +1,10 @@
+index=_internal sourcetype=splunkd source=*metrics.log group=per_sourcetype_thruput earliest=-7d@d latest=@d
+| fields series kb
+| where isnotnull(series)
+| stats sum(kb) as kb by series
+| eventstats sum(kb) as total_kb
+| eval GB=round(kb/1024/1024,2)
+| eval pct_of_total=if(total_kb>0, round(kb/total_kb*100,1), null())
+| sort 20 -GB
+| rename series as sourcetype
+| table sourcetype GB pct_of_total

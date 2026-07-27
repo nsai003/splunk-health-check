@@ -4,7 +4,7 @@ Community/session asset for the "Ingest Smarter, Prove More" talk.
 
 This pack gives attendees a practical Monday health-check workflow:
 
-- 5 portable SPL searches
+- 7 portable SPL searches
 - Splunk AI Assistant prompts
 - A lightweight AI skill file
 - 90-day sprint worksheets
@@ -30,27 +30,51 @@ Validate every search in your own Splunk Cloud or Splunk Enterprise environment 
 
 ## Quick Start
 
-Run these five searches first:
+Run these seven searches in order:
 
 1. `spl/01_weekly_index_concentration.spl`
-2. `spl/02_week_over_week_index_delta.spl`
-3. `spl/03_weekly_sourcetype_concentration.spl`
+2. `spl/02_weekly_sourcetype_concentration.spl`
+3. `spl/03_daily_ingest_trend_spikes_14d.spl`
 4. `spl/04_scheduled_search_compute_burn.spl`
-5. `spl/05_lastchanceindex_misroute_triage.spl`
+5. `spl/05_ad_hoc_search_compute_burn.spl`
+6. `spl/06_pipeline_pressure_queue_backlog.spl`
+7. `spl/07_lastchanceindex_misroute_triage.spl`
 
 Then use:
 
+- `SEARCHES.md`
 - `prompts/splunk_ai_assistant_monday_health_check.md`
 - `worksheets/90_day_sprint_worksheet.md`
 - `worksheets/owner_review_template.md`
 
+For public screenshots or conference slides, use:
+
+- `spl/01_weekly_index_concentration_sanitized_for_screenshots.spl`
+
+This masks real index names as `Data Stream 1`, `Data Stream 2`, and so on. Keep real index, sourcetype, host, source, and saved-search names out of public slides unless they are explicitly approved for disclosure.
+
 ## Suggested Session Promise
 
-"Scan the QR code and leave with a reusable Splunk health-check skill: five SPL searches, AI Assistant prompts, and a 90-day worksheet you can use Monday morning."
+"Scan the QR code and leave with a reusable Splunk health-check kit: seven SPL searches, AI Assistant prompts, and a 90-day worksheet you can use Monday morning."
+
+## QR Destination
+
+Use one of these URLs for the session QR code:
+
+- GitHub repository: `https://github.com/nsai003/splunk-health-check`
+- GitHub Pages landing page, if enabled: `https://nsai003.github.io/splunk-health-check/`
+
+For the slide, point the QR to the GitHub Pages URL if Pages is enabled. Otherwise, point it to the GitHub repository URL.
+
+## Search Notes
+
+- The searches use `_internal` and `_audit` because those are the most portable sources for a Splunk Cloud health-check starter kit.
+- `_audit` visibility can vary by role and environment. If the ad-hoc compute search returns no results, treat that as a permissions/data-availability finding and use `extras/ad_hoc_compute_fallback_internal_search_activity.spl` only as an activity approximation, not a runtime-equivalent replacement.
+- `metrics.log` throughput is directional and operationally useful. If your environment exposes `license_usage.log`, compare against `extras/license_usage_daily_ingest_trend_if_available.spl` before using numbers in budget conversations.
+- The searches are intended to prioritize owner conversations. They are not delete lists.
 
 ## Optional Use Case Discovery Step
 
 After the health check identifies trusted sourcetypes and priority data owners, use Splunk Value Insights / Use Case Discovery, where available, to map data to Splunk Lantern capabilities and candidate use cases.
 
 Reference: https://help.splunk.com/en/splunk-cloud-platform/administer/admin-manual/10.4.2604/monitor-your-splunk-cloud-platform-deployment/use-the-value-insights-dashboard/discover-new-use-cases-and-capabilities
-

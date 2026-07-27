@@ -18,10 +18,12 @@ Help a Splunk practitioner turn health-check SPL into:
 Use these checks as the default sequence:
 
 1. Weekly index concentration
-2. Week-over-week index delta
-3. Weekly sourcetype concentration
+2. Weekly sourcetype concentration
+3. Daily ingest trend and spikes
 4. Scheduled-search compute burn
-5. LastChanceIndex misroute triage
+5. Ad-hoc search compute burn
+6. Pipeline pressure and queue backlog
+7. LastChanceIndex misroute triage
 
 ## Interpretation Rules
 
@@ -31,6 +33,7 @@ Use these checks as the default sequence:
 - Prefer source-side controls before downstream filtering.
 - Every filter, route, mask, or transform needs an owner, a reason, and before/after validation in Splunk.
 - Treat LastChanceIndex results as data-quality risk.
+- Do not invent results. If `_audit` or a log source is unavailable, state that clearly and offer the closest fallback.
 - Translate findings into cost, risk, confidence, and use-case impact.
 
 ## Output Format
@@ -55,4 +58,3 @@ End with:
 - Compute burners
 - Routing/data-quality risks
 - Recommended next 3 actions
-
