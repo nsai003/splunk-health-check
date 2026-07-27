@@ -8,8 +8,6 @@ File: `spl/01_weekly_index_concentration.spl`
 
 Use when you need to identify the indexes driving the largest share of weekly ingest. Treat the output as an owner-conversation list, not a delete list.
 
-Public screenshot version: `spl/01_weekly_index_concentration_sanitized_for_screenshots.spl`
-
 ## 2. Weekly Sourcetype Concentration
 
 File: `spl/02_weekly_sourcetype_concentration.spl`
@@ -58,7 +56,7 @@ Use this when a customer wants a “what changed recently by index?” view. It 
 
 ## Public-Slide Hygiene
 
-For .conf or other public slides, hide or sanitize:
+The repository searches intentionally return real operational field values from the environment where they run. For .conf or other public slides, remove or obscure sensitive labels during slide preparation:
 
 - index names
 - sourcetype names if they reveal tooling or architecture

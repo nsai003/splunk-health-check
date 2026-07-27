@@ -47,11 +47,7 @@ Then use:
 - `worksheets/90_day_sprint_worksheet.md`
 - `worksheets/owner_review_template.md`
 
-For public screenshots or conference slides, use:
-
-- `spl/01_weekly_index_concentration_sanitized_for_screenshots.spl`
-
-This masks real index names as `Data Stream 1`, `Data Stream 2`, and so on. Keep real index, sourcetype, host, source, and saved-search names out of public slides unless they are explicitly approved for disclosure.
+The SPL files return operational field values from the environment where they run. For conference slides or public screenshots, remove sensitive labels during slide preparation rather than changing the shared searches.
 
 ## Suggested Session Promise
 
