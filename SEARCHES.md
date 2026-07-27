@@ -48,7 +48,7 @@ File: `spl/07_lastchanceindex_misroute_triage.spl`
 
 Use when you need to detect data redirected because target indexes are unconfigured, disabled, or deleted. Treat every result as data-quality risk, even when volume is small.
 
-This search intentionally requires the actual `Received event for unconfigured/disabled/deleted index` or `Redirected event for unconfigured/disabled/deleted index` message. It does not search for `LastChanceIndex` by itself because that can match normal search logs that mention the term.
+This search intentionally requires the actual `Received event for unconfigured/disabled/deleted index` or `Redirected event for unconfigured/disabled/deleted index` message from `splunkd.log`. It does not search for `LastChanceIndex` by itself because that can match normal search activity logs, such as `remote_searches.log`, that merely mention the term.
 
 ## Bonus: Week-Over-Week Index Delta
 

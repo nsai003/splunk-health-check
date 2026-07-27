@@ -1,4 +1,4 @@
-index=_internal earliest=-7d@d latest=@d
+index=_internal sourcetype=splunkd source=*splunkd.log earliest=-7d@d latest=@d
     ("Received event for unconfigured/disabled/deleted index" OR "Redirected event for unconfigured/disabled/deleted index")
 | fields _time host source sourcetype _raw
 | where match(_raw, "(?i)(Received|Redirected) event for unconfigured/disabled/deleted index=")
