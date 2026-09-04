@@ -56,7 +56,7 @@ If the target index appears as `unspecified`, Splunk logged the destination inde
 
 File: `extras/bonus_week_over_week_index_delta.spl`
 
-Use this when a customer wants a “what changed recently by index?” view. It is helpful for storytelling, but the seven primary searches above are the main QR handout sequence.
+Use this when a customer wants a "what changed recently by index?" view. It compares the last seven days with the previous seven days. It is helpful for storytelling, but the seven primary searches above are the main QR handout sequence.
 
 ## Public-Slide Hygiene
 

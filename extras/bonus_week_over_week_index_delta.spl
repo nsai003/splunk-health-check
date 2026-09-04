@@ -1,15 +1,14 @@
-index=_internal sourcetype=splunkd source=*metrics.log group=per_index_thruput earliest=-60d@d latest=@d
+index=_internal sourcetype=splunkd source=*metrics.log group=per_index_thruput earliest=-14d@d latest=@d
 | fields _time series kb
 | where isnotnull(series)
 | where NOT match(series, "^_") AND series!="history" AND series!="summary"
-| eval week=strftime(_time,"%Y-%U")
-| stats sum(kb) as kb by week series
-| sort 0 series week
-| streamstats current=f window=1 last(kb) as prev_kb by series
-| where isnotnull(prev_kb)
-| eval this_week_GB=round(kb/1024/1024,2)
-| eval delta_GB=round((kb-prev_kb)/1024/1024,2)
-| eval delta_pct=if(prev_kb>0, round((kb-prev_kb)/prev_kb*100,1), null())
+| eval period=if(_time>=relative_time(now(),"-7d@d"),"current_week","previous_week")
+| stats sum(kb) as kb by series period
+| eval GB=round(kb/1024/1024,2)
+| xyseries series period GB
+| fillnull value=0 current_week previous_week
+| eval delta_GB=round(current_week-previous_week,2)
+| eval delta_pct=case(previous_week>0, round((current_week-previous_week)/previous_week*100,1), current_week>0, null(), true(), 0)
 | rename series as index
 | sort 20 -delta_GB
-| table index this_week_GB delta_GB delta_pct week
+| table index current_week previous_week delta_GB delta_pct
