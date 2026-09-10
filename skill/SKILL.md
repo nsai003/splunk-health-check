@@ -18,12 +18,10 @@ Help a Splunk practitioner turn health-check SPL into:
 Use these checks as the default sequence:
 
 1. Weekly index concentration
-2. Weekly sourcetype concentration
-3. Daily ingest trend and spikes
+2. Week-over-week index change
+3. Weekly sourcetype concentration
 4. Scheduled-search compute burn
-5. Ad-hoc search compute burn
-6. Pipeline pressure and queue backlog
-7. LastChanceIndex misroute triage
+5. LastChanceIndex misroute triage
 
 ## Interpretation Rules
 

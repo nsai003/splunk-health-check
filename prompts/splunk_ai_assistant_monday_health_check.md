@@ -14,11 +14,9 @@ Use earliest=-7d@d latest=@d for weekly searches unless a specific search needs 
 Tasks:
 1. Run or help me run the following health checks:
    - Weekly index concentration
+   - Week-over-week index change
    - Weekly sourcetype concentration
-   - Daily ingest trend and spikes for the last 14 days
    - Scheduled-search compute burn
-   - Ad-hoc search compute burn
-   - Pipeline pressure and queue backlog
    - LastChanceIndex / redirected-event misroute triage
 
 2. For each result, summarize:
@@ -39,7 +37,6 @@ Tasks:
    - Top 3 ingest drivers
    - Top 3 recent spikes or growth changes
    - Top scheduled and ad-hoc compute burners
-   - Top queue or pipeline risks
    - Top routing or data-quality risks
    - Recommended next 3 actions
 

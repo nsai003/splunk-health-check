@@ -4,9 +4,10 @@ Community/session asset for the "Ingest Smarter, Prove More" talk.
 
 This pack gives attendees a practical Monday health-check workflow:
 
-- 7 portable SPL searches
+- 5 core SPL searches from the session
+- Optional advanced checks
 - Splunk AI Assistant prompts
-- A lightweight AI skill file
+- A lightweight AI instruction file
 - 90-day sprint worksheets
 - Executive translation prompts
 
@@ -30,15 +31,17 @@ Validate every search in your own Splunk Cloud or Splunk Enterprise environment 
 
 ## Quick Start
 
-Run these seven searches in order:
+Start here:
+
+- `START_HERE.md`
+
+Run these five core searches in order:
 
 1. `spl/01_weekly_index_concentration.spl`
-2. `spl/02_weekly_sourcetype_concentration.spl`
-3. `spl/03_daily_ingest_trend_spikes_14d.spl`
+2. `spl/02_week_over_week_index_change.spl`
+3. `spl/03_weekly_sourcetype_concentration.spl`
 4. `spl/04_scheduled_search_compute_burn.spl`
-5. `spl/05_ad_hoc_search_compute_burn.spl`
-6. `spl/06_pipeline_pressure_queue_backlog.spl`
-7. `spl/07_lastchanceindex_misroute_triage.spl`
+5. `spl/05_lastchanceindex_misroute_triage.spl`
 
 Then use:
 
@@ -47,11 +50,13 @@ Then use:
 - `worksheets/90_day_sprint_worksheet.md`
 - `worksheets/owner_review_template.md`
 
+Optional checks live in `optional/`. Use them only when your environment exposes the needed `_internal` or `_audit` data and the core checks point you toward deeper validation.
+
 The SPL files return operational field values from the environment where they run. For conference slides or public screenshots, remove sensitive labels during slide preparation rather than changing the shared searches.
 
 ## Suggested Session Promise
 
-"Scan the QR code and leave with a reusable Splunk health-check kit: seven SPL searches, AI Assistant prompts, and a 90-day worksheet you can use Monday morning."
+"Scan the QR code and leave with a reusable Splunk health-check kit: core SPL searches, AI Assistant prompts, and a 90-day worksheet you can use Monday morning."
 
 ## QR Destination
 
@@ -64,9 +69,9 @@ For the slide, point the QR to the GitHub Pages URL if Pages is enabled. Otherwi
 
 ## Search Notes
 
-- The searches use `_internal` and `_audit` because those are the most portable sources for a Splunk Cloud health-check starter kit.
-- `_audit` visibility can vary by role and environment. If the ad-hoc compute search returns no results, treat that as a permissions/data-availability finding and use `extras/ad_hoc_compute_fallback_internal_search_activity.spl` only as an activity approximation, not a runtime-equivalent replacement.
-- `metrics.log` throughput is directional and operationally useful. If your environment exposes `license_usage.log`, compare against `extras/license_usage_daily_ingest_trend_if_available.spl` before using numbers in budget conversations.
+- The core searches use `_internal` because it is the most portable starting point for this health-check workflow.
+- `_audit` visibility can vary by role and environment. Treat optional `_audit` searches as deeper validation, not the required path.
+- `metrics.log` throughput is directional and operationally useful. If your environment exposes `license_usage.log`, compare against `optional/license_usage_daily_ingest_trend_if_available.spl` before using numbers in budget conversations.
 - The searches are intended to prioritize owner conversations. They are not delete lists.
 
 ## Optional Use Case Discovery Step
