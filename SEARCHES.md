@@ -44,9 +44,10 @@ Optional checks:
 - `optional/ad_hoc_search_compute_burn.spl`
 - `optional/pipeline_pressure_queue_backlog.spl`
 - `optional/license_usage_daily_ingest_trend_if_available.spl`
-- `optional/ad_hoc_compute_fallback_internal_search_activity.spl`
 
 Use optional checks only when the core checks point you toward deeper validation and the environment exposes the required data. For example, `_audit` visibility varies by role and environment, so treat ad-hoc search runtime as optional validation rather than part of the required flow.
+
+For ad-hoc search activity, use `optional/ad_hoc_search_compute_burn.spl` when `_audit` is available. Search job logs such as `dispatch/*/search.log` are not consistently exposed in Splunk Cloud, so they are not included in the public optional set.
 
 ## Public-Slide Hygiene
 

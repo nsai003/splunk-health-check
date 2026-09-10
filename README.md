@@ -71,6 +71,7 @@ For the slide, point the QR to the GitHub Pages URL if Pages is enabled. Otherwi
 
 - The core searches use `_internal` because it is the most portable starting point for this health-check workflow.
 - `_audit` visibility can vary by role and environment. Treat optional `_audit` searches as deeper validation, not the required path.
+- For ad-hoc search activity, use the optional `_audit` search when your role can access it. Search job log files are not consistently exposed in Splunk Cloud.
 - `metrics.log` throughput is directional and operationally useful. If your environment exposes `license_usage.log`, compare against `optional/license_usage_daily_ingest_trend_if_available.spl` before using numbers in budget conversations.
 - The searches are intended to prioritize owner conversations. They are not delete lists.
 
